@@ -8,18 +8,20 @@ const refs = {
   formEl: document.querySelector('.form'),
   inputDelay: document.querySelector('[name=delay]'),
   inputStep: document.querySelector('[name=step]'),
-  inputAmount: document.querySelector('[name=amount]'),
+  inputAmount: document.querySelector('[name=amount]'), 
+  btnCreatePromises: document.querySelector('button'),
 }
 
 refs.formEl.addEventListener('submit', onFormSubmit);
+refs.btnCreatePromises.addEventListener('click', onFormSubmit);
 
 function onFormSubmit(evt) {
   evt.preventDefault();
   console.log('EVT', evt);
   // console.log('EVT Target', evt.target);
-  // console.log('evt.currentTarget', evt.currentTarget);
+  console.log('evt.currentTarget', evt.currentTarget);
   // console.log('refs.inputStep.value', refs.inputStep.value);
-  // console.log('refs.inputDelay.value', refs.inputDelay.value);
+  // console.log('refs.inputDelay.value', refs.inputDelay);
 
   // let delay = Number(evt.currentTarget.delay.value);
   // const step = Number(evt.currentTarget.step.value);
@@ -32,6 +34,10 @@ function onFormSubmit(evt) {
   console.log('delay', delay)
   console.log('step', step)
   console.log('amount', amount)
+  evt.currentTarget.setAttribute('disabled', true);
+  setTimeout(() => {
+    refs.btnCreatePromises.removeAttribute('disabled');
+  }, (delay+step)*amount);
 
   for (let position = 1; position <= amount; position+=1) {
     delay += step;
@@ -45,17 +51,22 @@ function onFormSubmit(evt) {
         Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`,
           { useIcon: false });
       }, delay));
-  }
+  }   
 }
 
 function createPromise(position, delay) {
   const shouldResolve = Math.random() > 0.3;
   const objectPromise = { position, delay };
-
   return new Promise((resolve, reject) => {
     if (shouldResolve) {
       resolve(objectPromise);
     }
     reject(objectPromise);
-  });  
+   
+  }); 
+  
 }
+// function removeEventListenerSubmit(evt) {
+//   console.log('removeEventListenerSubmit()',evt)
+//   refs.formEl.removeEventListener('submit', onFormSubmit);
+// }
