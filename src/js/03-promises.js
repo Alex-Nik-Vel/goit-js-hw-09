@@ -37,7 +37,7 @@ function onFormSubmit(evt) {
   evt.currentTarget.setAttribute('disabled', true);
   setTimeout(() => {
     refs.btnCreatePromises.removeAttribute('disabled');
-  }, (delay+step)*amount);
+  }, (step*amount)*2);
 
   for (let position = 1; position <= amount; position+=1) {
     delay += step;
