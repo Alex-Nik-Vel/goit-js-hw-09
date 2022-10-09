@@ -63,10 +63,5 @@ function createPromise(position, delay) {
     }
     reject(objectPromise);
    
-  }); 
-  
+  });   
 }
-// function removeEventListenerSubmit(evt) {
-//   console.log('removeEventListenerSubmit()',evt)
-//   refs.formEl.removeEventListener('submit', onFormSubmit);
-// }
